@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twibook - Sistema de Emergencia</title>
+    <title>Twibook - Status</title>
     <style>
         * { box-sizing: border-box; }
         body { 
             background-color: #0d0f14; 
             color: #e4e6eb; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -26,21 +26,6 @@
             width: 90%;
             border: 1px solid #2d313d;
         }
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            background-color: #ff4d4d;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            box-shadow: 0 0 10px #ff4d4d;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
         .header-status {
             background: rgba(255, 77, 77, 0.1);
             color: #ff4d4d;
@@ -52,8 +37,34 @@
             align-items: center;
             margin-bottom: 25px;
         }
+        .status-dot {
+            width: 10px; height: 10px;
+            background-color: #ff4d4d;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #ff4d4d;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        
         h1 { color: #ffffff; margin: 10px 0; font-size: 26px; }
-        p { color: #b0b3b8; line-height: 1.6; font-size: 16px; }
+        p { color: #b0b3b8; line-height: 1.6; }
+
+        .lang-switch {
+            margin-bottom: 20px;
+        }
+        .lang-btn {
+            background: #252833;
+            border: 1px solid #3d4150;
+            color: #a29bfe;
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+        .lang-btn:hover { background: #8e44ad; color: white; }
+
         .info-box {
             background: #252833;
             padding: 15px;
@@ -63,26 +74,64 @@
             border-left: 4px solid #8e44ad;
             text-align: left;
         }
-        .footer { margin-top: 30px; font-size: 12px; color: #5c606b; }
+        .footer { margin-top: 30px; font-size: 11px; color: #5c606b; letter-spacing: 1px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="header-status">
-            <span class="status-dot"></span> MODO DE EMERGENCIA ACTIVO
-        </div>
-        <h1>¡Se ha caído el servidor!</h1>
-        <p>Has sido redirigido automáticamente aquí porque nuestro servidor principal en casa ha tenido un problema técnico (probablemente un apagón).</p>
-        
-        <div class="info-box">
-            <strong>¿Qué pasó?</strong> El túnel de Cloudflare detectó que mi PC se desconectó y te envió a este servidor de respaldo en Vercel para mantenerte informado.
-        </div>
 
-        <p style="margin-top: 25px;">Estamos trabajando para que <strong>Twibook</strong> vuelva a estar en línea pronto. ¡Vuelve en unos minutos!</p>
-        
-        <div class="footer">
-            IP: Nodo RD (Desconectado) | Red: TwiBook Failover Edge
-        </div>
+<div class="card">
+    <div class="lang-switch">
+        <button class="lang-btn" onclick="setLang('es')">Español</button>
+        <button class="lang-btn" onclick="setLang('en')">English</button>
     </div>
+
+    <div class="header-status">
+        <span class="status-dot"></span> <span id="badge">MODO DE EMERGENCIA</span>
+    </div>
+
+    <h1 id="title">¡Servidor Caído!</h1>
+    <p id="desc">Has sido redirigido automáticamente porque el servidor principal no responde.</p>
+    
+    <div class="info-box" id="info">
+        <strong>¿Qué pasó?</strong> Hubo un problema de energía en el nodo local. Estamos trabajando para volver.
+    </div>
+
+    <div class="footer">
+        NODO: RD | RED: TWIBOOK FAILOVER
+    </div>
+</div>
+
+<script>
+    const texts = {
+        es: {
+            badge: "MODO DE EMERGENCIA",
+            title: "¡Servidor Caído!",
+            desc: "Has sido redirigido automáticamente porque el servidor principal no responde a la conexión.",
+            info: "<strong>¿Qué pasó?</strong> Hubo un problema de energía en el nodo local. El sistema de Cloudflare te ha movido a esta red de respaldo mientras restablecemos el servicio."
+        },
+        en: {
+            badge: "EMERGENCY MODE",
+            title: "Server Down!",
+            desc: "You have been automatically redirected because the main server is not responding.",
+            info: "<strong>What happened?</strong> There was a power issue at the local node. Cloudflare has moved you to this backup network while we restore the service."
+        }
+    };
+
+    function setLang(lang) {
+        document.getElementById('badge').innerText = texts[lang].badge;
+        document.getElementById('title').innerText = texts[lang].title;
+        document.getElementById('desc').innerText = texts[lang].desc;
+        document.getElementById('info').innerHTML = texts[lang].info;
+    }
+
+    // Detectar idioma del navegador al cargar
+    const userLang = navigator.language || navigator.userLanguage; 
+    if (userLang.startsWith('en')) {
+        setLang('en');
+    } else {
+        setLang('es');
+    }
+</script>
+
 </body>
 </html>
