@@ -3,143 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twibook - Status</title>
+    <title>Twibook - Fuera de Servicio</title>
     <style>
-        * { box-sizing: border-box; }
-        body { 
-            background-color: #0d0f14; 
-            color: #e4e6eb; 
-            font-family: 'Segoe UI', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
         }
-        .card { 
-            text-align: center; 
-            padding: 40px; 
-            background: #1c1e26; 
-            border-radius: 28px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            max-width: 480px; 
-            width: 90%;
-            border: 1px solid #2d313d;
+        .container {
+            text-align: center;
+            padding: 30px;
+            max-width: 400px;
         }
-        .header-status {
-            background: rgba(255, 77, 77, 0.1);
-            color: #ff4d4d;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
+        .logo {
+            font-size: 2.5rem;
             font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            margin-bottom: 25px;
+            color: #1d9bf0;
+            margin-bottom: 20px;
         }
-        .status-dot {
-            width: 10px; height: 10px;
-            background-color: #ff4d4d;
-            border-radius: 50%;
-            margin-right: 8px;
-            box-shadow: 0 0 10px #ff4d4d;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        h1 { font-size: 1.6rem; margin-bottom: 10px; color: #ff4b4b; }
+        p { color: #bbbbbb; font-size: 1.1rem; line-height: 1.4; }
         
-        h1 { color: #ffffff; margin: 10px 0; font-size: 26px; }
-        p { color: #b0b3b8; line-height: 1.6; }
-
-        .btn-verify {
-            display: inline-block;
+        .box {
             margin-top: 25px;
-            padding: 12px 24px;
-            background: #8e44ad;
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: bold;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3);
+            padding: 20px;
+            background: #161616;
+            border-radius: 15px;
+            border: 1px solid #252525;
         }
-        .btn-verify:hover {
-            background: #a29bfe;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(142, 68, 173, 0.5);
-        }
-
-        .lang-switch { margin-bottom: 20px; }
-        .lang-btn {
-            background: #252833; border: 1px solid #3d4150;
-            color: #a29bfe; padding: 5px 12px; border-radius: 8px;
-            cursor: pointer; font-size: 12px;
-        }
-
-        .info-box {
-            background: #252833; padding: 15px; border-radius: 12px;
-            margin-top: 25px; font-size: 14px; border-left: 4px solid #8e44ad;
-            text-align: left;
-        }
-        .footer { margin-top: 30px; font-size: 11px; color: #5c606b; letter-spacing: 1px; }
+        .highlight { color: #ffcc00; font-weight: bold; }
+        .footer { margin-top: 40px; font-size: 0.8rem; color: #444; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="logo">Twibook</div>
+        <h1>Servidor Caído</h1>
+        <p>Lo sentimos, la plataforma no está disponible ahora mismo.</p>
+        
+        <div class="box">
+            <p>Se fue la luz por aquí (<span class="highlight">EdeEste</span>) y el servidor se apagó. <br><br>
+            Lo más probable es que <b>vuelva muy tarde</b>, así que no se queden esperando. En cuanto manden la luz, subimos todo de nuevo.</p>
+        </div>
 
-<div class="card">
-    <div class="lang-switch">
-        <button class="lang-btn" onclick="setLang('es')">Español</button>
-        <button class="lang-btn" onclick="setLang('en')">English</button>
+        <div class="footer">
+            Admin: Derek — Chequea más tarde.
+        </div>
     </div>
-
-    <div class="header-status">
-        <span class="status-dot"></span> <span id="badge">MODO DE EMERGENCIA</span>
-    </div>
-
-    <h1 id="title">¡Servidor Caído!</h1>
-    <p id="desc">Has sido redirigido automáticamente porque el servidor principal no responde.</p>
-    
-    <a href="https://twibook.me" class="btn-verify" id="btn-text">Verificar si ya volvió</a>
-
-    <div class="info-box" id="info">
-        <strong>¿Qué pasó?</strong> Hubo un problema de energía en el nodo local. El sistema de Cloudflare te ha movido a esta red de respaldo.
-    </div>
-
-    <div class="footer">
-        NODO: RD | RED: TWIBOOK FAILOVER
-    </div>
-</div>
-
-<script>
-    const texts = {
-        es: {
-            badge: "MODO DE EMERGENCIA",
-            title: "¡Servidor Caído!",
-            desc: "Has sido redirigido automáticamente porque el servidor principal no responde a la conexión.",
-            btn: "Verificar si ya volvió",
-            info: "<strong>¿Qué pasó?</strong> Hubo un problema de energía en el nodo local. El sistema de Cloudflare te ha movido a esta red de respaldo mientras restablecemos el servicio."
-        },
-        en: {
-            badge: "EMERGENCY MODE",
-            title: "Server Down!",
-            desc: "You have been automatically redirected because the main server is not responding.",
-            btn: "Check if it's back online",
-            info: "<strong>What happened?</strong> There was a power issue at the local node. Cloudflare has moved you to this backup network while we restore the service."
-        }
-    };
-
-    function setLang(lang) {
-        document.getElementById('badge').innerText = texts[lang].badge;
-        document.getElementById('title').innerText = texts[lang].title;
-        document.getElementById('desc').innerText = texts[lang].desc;
-        document.getElementById('btn-text').innerText = texts[lang].btn;
-        document.getElementById('info').innerHTML = texts[lang].info;
-    }
-
-    const userLang = navigator.language || navigator.userLanguage; 
-    if (userLang.startsWith('en')) { setLang('en'); } else { setLang('es'); }
-</script>
-
 </body>
 </html>
